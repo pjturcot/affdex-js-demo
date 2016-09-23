@@ -34,6 +34,7 @@ var JSSDKDemo = (function() {
     var y_scale = d3.scale.linear().domain([100, 0]).range([2, 248]);
     var t = null;
     var cursor_interval = null;
+    var uuid = null;
     
     var API_KEY = "AIzaSyCdQbLORhF7PGVJ7DG1tkoVJGgDYwA_o0M";
 
@@ -54,7 +55,9 @@ var JSSDKDemo = (function() {
             detector.start();
         }
 
-        //t = d3.scale.linear().domain([0, video_duration_sec]).range([0, svg_width]);
+        uuid = guid();
+        console.log("UUID: " + uuid);
+
         begin_capture();
         capture_frames = true;
         
@@ -175,6 +178,15 @@ var JSSDKDemo = (function() {
         return Math.floor(time_sec / 60) + ":" + ((time_sec % 60 < 10) ? ("0" + time_sec % 60) : time_sec % 60);
     };
 
+    var guid = function() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+    }
     
     var no_internet = function() {
         $(".alert").hide();
